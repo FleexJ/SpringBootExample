@@ -10,14 +10,19 @@
 </head>
 <body>
 <div class="header-layout" th:fragment="header-layout">
+    <div class="header-sign">
+        <p>You are not logged in</p>
+        <a href="/sign_in">Sign In</a>
+        <a href="/sign_up">Sign Up</a>
+    </div>
     <a class="header-logo" href="/">
         <img th:src="@{/images/notes.png}">
         Notes
     </a>
     <div class="header-ref">
         <a href="/">Home page</a>
-        <a href="">Link 2</a>
-        <a href="">Link 3</a>
+        <a href="/create_note">New note</a>
+        <a href="/my_notes">My notes</a>
         <a href="">Link 4</a>
     </div>
 </div>
