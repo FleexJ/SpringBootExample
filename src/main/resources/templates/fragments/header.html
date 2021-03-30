@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <div th:fragment="header-css">
+        <link rel="stylesheet" th:href="@{/mainStyle.css}" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700">
+    </div>
+</head>
+<body>
+<div class="header-links" th:fragment="header">
+    <a class="header-logo" href="/">
+        Notes
+    </a>
+    <div class="header-ref">
+        <a href="">Link 1</a>
+        <a href="">Link 2</a>
+        <a href="">Link 3</a>
+        <a href="">Link 4</a>
+    </div>
+</div>
+</body>
+</html>
