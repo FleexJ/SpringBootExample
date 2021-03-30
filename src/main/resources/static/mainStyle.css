@@ -1,30 +1,39 @@
 *{
     margin: 0;
     font-family: "Ubuntu Mono", monospace;
+    transition: 0.1s;
+    border-radius: 5px;
+    background: #eee8e8;
+    color: #162433
 }
 
 a{
     text-decoration: none;
+    color: #5bab0f;
 }
 
-.header-links{
+.content{
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 50px;
+    height: 1000px;
+}
+
+.header-layout{
     width: 100%;
     height: 100px;
-    background: #282727;
-    color: #e5bf51;
     padding-top: 10px;
 }
 
 .header-logo{
     font-size: 55px;
-    margin-left: 45%;
+    margin-left: 42%;
     width: 50%;
-    color: #e5bf51;
+    color: #162433
 }
 
 .header-logo img{
     width: 40px;
-    margin-right: 10px;
 }
 
 .header-ref{
@@ -36,17 +45,27 @@ a{
 
 .header-ref a{
     width: 25%;
-    background: #e5bf51;
-    color: #282727;
     margin: auto;
     font-size: 25px;
-    border: 1px solid #282727;
+    border-top: 1px solid rgba(19,19,19,0.27);
+    border-bottom: 1px solid rgba(19,19,19,0.27);
+    border-radius: 0;
+}
+.header-ref a:hover{
+    background: #5bab0f;
+    color: aliceblue;
+}
+.header-ref a:first-child{
+    border-left: 1px solid rgba(19,19,19,0.27);
+}
+.header-ref a:last-child{
+    border-right: 1px solid rgba(19,19,19,0.27);
 }
 
 .index-content{
     width: 100%;
     font-size: 40px;
-    height: 100%;
+    height: 70%;
 }
 
 .index-content h3{
@@ -61,6 +80,6 @@ a{
     color: #e5bf51;
     text-align: center;
     bottom: 0;
-    position: absolute;
     width: 100%;
+    border-radius: 0px;
 }

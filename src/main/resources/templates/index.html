@@ -7,9 +7,11 @@
     <div th:replace="fragments/header :: header-css"></div>
 </head>
 <body>
-<div th:replace="fragments/header :: header"></div>
-<div class="index-content">
-    <h3>This is main page</h3>
+<div class="content">
+    <div th:replace="fragments/header :: header-layout"></div>
+    <div class="index-content">
+        <h3>This is main page</h3>
+    </div>
 </div>
 <div th:replace="fragments/footer :: footer"></div>
 </body>
