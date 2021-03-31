@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <div th:fragment="header-css">
-        <link rel="stylesheet" th:href="@{/mainStyle.css}" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700">
-    </div>
-</head>
-<body>
-<div class="header-layout" th:fragment="header-layout">
+
+<div th:fragment="header-css">
+    <link rel="stylesheet" th:href="@{/mainStyle.css}" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700">
+</div>
+
+<div th:fragment="header-layout" class="header-layout">
     <div class="header-sign">
         <p>You are not logged in</p>
         <a href="/sign_in">Sign In</a>
@@ -23,8 +21,7 @@
         <a href="/">Home page</a>
         <a href="/create_note">New note</a>
         <a href="/my_notes">My notes</a>
-        <a href="">Link 4</a>
+        <a href="/my_profile">Profile</a>
     </div>
 </div>
-</body>
 </html>

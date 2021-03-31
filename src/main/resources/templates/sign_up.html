@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div class="content">
+    <div th:replace="fragments/header :: header-layout"></div>
+    <div class="signUp-content">
+        <form class="signUp-form" th:method="post" th:action="@{/sign_up}" th:object="${user}">
+            <h4>Registration</h4>
+
+            <label for="name">Name</label>
+            <input th:field="*{name}" type="text" id="name" placeholder="Name"/>
+            <p class="validationError"
+                 th:if="${#fields.hasErrors('name')}"
+                 th:errors="*{name}">
+            </p>
+            <br>
+
+            <label for="email">Email</label>
+            <input th:field="*{email}" type="text" id="email" placeholder="Email">
+            <p class="validationError"
+                 th:if="${#fields.hasErrors('email')}"
+                 th:errors="*{email}">
+            </p>
+            <br>
+
+            <label for="password">Password</label>
+            <input th:field="*{password}" type="password" id="password" placeholder="Password">
+            <p class="validationError"
+                 th:if="${#fields.hasErrors('password')}"
+                 th:errors="*{password}">
+            </p>
+            <br>
+
+            <input type="submit" value="Sign Up"/>
+        </form>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

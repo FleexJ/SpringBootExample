@@ -11,6 +11,29 @@ a{
     color: #5bab0f;
 }
 
+h4{
+    font-size: 30px;
+    margin-bottom: 50px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #b7aead;
+}
+
+input{
+    margin-bottom: 20px;
+    border: 1px solid #b7aead;
+    font-size: 15px;
+}
+
+input[type=submit]{
+    color: #5bab0f;
+    font-size: 18px;
+}
+
+label{
+    display: inline-block;
+    width: 100px;
+}
+
 .content{
     width: 80%;
     margin-left: 10%;
@@ -31,7 +54,8 @@ a{
 .header-layout{
     width: 100%;
     height: 100px;
-    padding-top: 10px;
+    /*padding-top: 10px;*/
+    margin-bottom: 80px;
 }
 
 .header-logo{
@@ -43,42 +67,51 @@ a{
 
 .header-logo img{
     width: 40px;
+    margin-right: -20px;
 }
 
 .header-ref{
     width: 100%;
-    height: 60px;
     display: flex;
     text-align: center;
+    border: 1px solid #b7aead;
+    margin-top: 30px;
 }
 
 .header-ref a{
     width: 25%;
-    margin: auto;
     font-size: 25px;
-    border-top: 1px solid rgba(19,19,19,0.27);
-    border-bottom: 1px solid rgba(19,19,19,0.27);
 }
 .header-ref a:hover{
     background: #5bab0f;
     color: aliceblue;
 }
-.header-ref a:first-child{
-    border-left: 1px solid rgba(19,19,19,0.27);
-}
-.header-ref a:last-child{
-    border-right: 1px solid rgba(19,19,19,0.27);
-}
 
 .index-content{
     width: 100%;
-    font-size: 40px;
+    font-size: 20px;
     height: 70%;
 }
 
-.index-content h3{
+.index-content h4{
     text-align: center;
-    margin: 100px auto auto;
+}
+
+.signUp-content{
+    width: 100%;
+    font-size: 20px;
+    height: 70%;
+}
+
+.signUp-form{
+    border: 1px solid #b7aead;
+    padding: 20px;
+}
+
+.validationError{
+    color: #bd2a31;
+    font-size: 16px;
+    margin-top: -10px;
 }
 
 .footer {
