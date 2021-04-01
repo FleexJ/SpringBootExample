@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Sign Up</title>
+    <title th:text="#{signUp.title}">Sign Up</title>
     <div th:replace="fragments/header :: header-css"></div>
 </head>
 <body>
@@ -11,33 +11,36 @@
     <div th:replace="fragments/header :: header-layout"></div>
     <div class="signUp-content">
         <form class="signUp-form" th:method="post" th:action="@{/sign_up}" th:object="${user}">
-            <h4>Registration</h4>
+            <h4 th:text="#{signUp.title}">Registration</h4>
 
-            <label for="name">Name</label>
-            <input th:field="*{name}" type="text" id="name" placeholder="Name"/>
+            <label for="name" th:text="#{signUp.name.text}">Name</label>
+            <input th:field="*{name}" type="text" id="name" placeholder="Name"
+                   th:placeholder="#{signUp.name.text}"/>
             <p class="validationError"
                  th:if="${#fields.hasErrors('name')}"
                  th:errors="*{name}">
             </p>
             <br>
 
-            <label for="email">Email</label>
-            <input th:field="*{email}" type="text" id="email" placeholder="Email">
+            <label for="email" th:text="#{signUp.email.text}">Email</label>
+            <input th:field="*{email}" type="text" id="email" placeholder="Email"
+                   th:placeholder="#{signUp.email.text}">
             <p class="validationError"
                  th:if="${#fields.hasErrors('email')}"
                  th:errors="*{email}">
             </p>
             <br>
 
-            <label for="password">Password</label>
-            <input th:field="*{password}" type="password" id="password" placeholder="Password">
+            <label for="password" th:text="#{signUp.password.text}">Password</label>
+            <input th:field="*{password}" type="password" id="password" placeholder="Password"
+                   th:placeholder="#{signUp.password.text}">
             <p class="validationError"
                  th:if="${#fields.hasErrors('password')}"
                  th:errors="*{password}">
             </p>
             <br>
 
-            <input type="submit" value="Sign Up"/>
+            <input type="submit" value="Sign Up" th:value="#{signUp.submit.value}"/>
         </form>
     </div>
 </div>

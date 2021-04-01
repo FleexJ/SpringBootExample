@@ -3,25 +3,31 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <div th:fragment="header-css">
-    <link rel="stylesheet" th:href="@{/mainStyle.css}" />
+    <link rel="stylesheet" th:href="@{/css/mainStyle.css}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700">
 </div>
 
 <div th:fragment="header-layout" class="header-layout">
     <div class="header-sign">
-        <p>You are not logged in</p>
-        <a href="/sign_in">Sign In</a>
-        <a href="/sign_up">Sign Up</a>
+        <div th:if="${currentUser} == null">
+            <p th:text="#{not.logged}">You are not logged</p>
+            <a href="/sign_in" th:text="#{signIn.ref}">Sign In</a>
+            <a href="/sign_up" th:text="#{signUp.ref}">Sign Up</a>
+        </div>
+        <div th:if="${currentUser} != null">
+            <p th:text="${currentUser.Email}"></p>
+            <a href="/logout" th:text="#{logout.ref}">Logout</a>
+        </div>
     </div>
     <a class="header-logo" href="/">
         <img th:src="@{/images/notes.png}">
         Notes
     </a>
     <div class="header-ref">
-        <a href="/">Home page</a>
-        <a href="/create_note">New note</a>
-        <a href="/my_notes">My notes</a>
-        <a href="/my_profile">Profile</a>
+        <a href="/" th:text="#{home.ref}">Home page</a>
+        <a href="/create_note" th:text="#{new.note.ref}">New note</a>
+        <a href="/my_notes" th:text="#{my.notes.ref}">My notes</a>
+        <a href="/my_profile" th:text="#{profile.ref}">Profile</a>
     </div>
 </div>
 </html>

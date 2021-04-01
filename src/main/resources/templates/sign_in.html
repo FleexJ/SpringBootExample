@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{signIn.title}">Sign In</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div class="content">
+    <div th:replace="fragments/header :: header-layout"></div>
+    <div class="signIn-content">
+        <form class="signIn-form" method="POST" action="/sign_in/process">
+            <h4 th:text="#{signIn.title}">Login</h4>
+
+            <label for="email" th:text="#{signIn.email.text}">Email</label>
+            <input type="text" id="email" name="email" placeholder="Email"
+                   th:placeholder="#{signIn.email.text}"/>
+            <br>
+
+            <label for="password" th:text="#{signIn.password.text}">Password</label>
+            <input type="password" id="password" name="password" placeholder="Password"
+                   th:placeholder="#{signIn.password.text}"/>
+            <br>
+
+            <p th:if="${error} == true" class="validationError" th:text="#{signIn.error.text}">
+                User with such data not found
+            </p>
+            <br>
+
+            <input type="submit" value="Sign In" th:value="#{signIn.submit.value}"/>
+        </form>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
