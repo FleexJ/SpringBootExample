@@ -1,5 +1,6 @@
 package com.example.springboot.config;
 
+import com.example.springboot.entity.User;
 import com.example.springboot.security.AuthProviderUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -33,6 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/sign_in", "/sign_up").anonymous()
+                .antMatchers("/create_note", "/my_notes", "/my_profile").authenticated()
+                .antMatchers("/admin/**").hasAuthority(User.ROLE_ADMIN_AUTHORITY)
                 .and().csrf().disable()
                 .formLogin()
                 .loginPage("/sign_in")

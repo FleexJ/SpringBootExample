@@ -15,7 +15,7 @@
             <a href="/sign_up" th:text="#{signUp.ref}">Sign Up</a>
         </div>
         <div th:if="${currentUser} != null">
-            <p th:text="${currentUser.Email}"></p>
+            <p th:text="${currentUser.role + ': ' + currentUser.email}"></p>
             <a href="/logout" th:text="#{logout.ref}">Logout</a>
         </div>
     </div>

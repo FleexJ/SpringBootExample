@@ -17,6 +17,8 @@ public class Note {
     public Note() {
     }
 
+
+
     public Note(int id, int idUser, String title, String content, Calendar created) {
         this.id = id;
         this.idUser = idUser;

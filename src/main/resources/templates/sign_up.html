@@ -10,7 +10,11 @@
 <div class="content">
     <div th:replace="fragments/header :: header-layout"></div>
     <div class="signUp-content">
-        <form class="signUp-form" th:method="post" th:action="@{/sign_up}" th:object="${user}">
+        <form class="signUp-form"
+              th:method="post"
+              th:action="@{/sign_up}"
+              th:object="${user}">
+
             <h4 th:text="#{signUp.title}">Registration</h4>
 
             <label for="name" th:text="#{signUp.name.text}">Name</label>

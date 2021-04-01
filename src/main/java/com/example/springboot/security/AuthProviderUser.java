@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -32,15 +33,17 @@ public class AuthProviderUser implements AuthenticationProvider {
         String password = authentication.getCredentials().toString();
         User user = userRepository.getFirstByEmail(email);
 
-        if (email.equals("admin") && password.equals("admin"))
-            return new UsernamePasswordAuthenticationToken(new User("admin", "admin"), null, new ArrayList<GrantedAuthority>());
-
         if (user == null || !passwordEncoder.matches(password, user.getPassword())) {
             throw new UsernameNotFoundException("User not found");
         }
 
-        System.out.println("User sign in: " + user.getEmail());
-        return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<GrantedAuthority>());
+        System.out.println("User sign in: " + user.getEmail() + "\tRole: " + user.getRole());
+        UserDetails details = org.springframework.security.core.userdetails.User.builder()
+                .username(user.getEmail())
+                .password(user.getPassword())
+                .roles(user.getRole())
+                .build();
+        return new UsernamePasswordAuthenticationToken(user, user.getPassword(), details.getAuthorities());
     }
 
     @Override

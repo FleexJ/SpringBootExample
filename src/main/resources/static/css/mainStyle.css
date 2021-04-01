@@ -18,7 +18,11 @@ h4{
     border-bottom: 1px solid #b7aead;
 }
 
-input{
+h5{
+    font-size: 25px;
+}
+
+input, textarea{
     margin-bottom: 20px;
     border: 1px solid #b7aead;
     font-size: 15px;
@@ -30,6 +34,7 @@ input[type=submit]{
 }
 
 label{
+    vertical-align: top;
     display: inline-block;
     width: 100px;
 }
@@ -87,20 +92,30 @@ label{
     color: aliceblue;
 }
 
-.index-content{
+.index-content, .signUp-content, .signIn-content, .createNote-content{
     width: 100%;
     font-size: 20px;
     height: 70%;
 }
 
-.index-content h4{
-    text-align: center;
+.note-one{
+    border: 1px solid #5bab0f;
 }
 
-.signUp-content{
-    width: 100%;
-    font-size: 20px;
-    height: 70%;
+.note-title{
+    padding: 10px;
+    background: #5bab0f;
+    color: aliceblue;
+}
+
+.note-content{
+    padding: 10px;
+    border-bottom: 1px solid #b7aead;
+}
+
+.note-created{
+    font-size: 15px;
+    padding-left: 10px;
 }
 
 form{
@@ -112,12 +127,6 @@ form{
     color: #bd2a31;
     font-size: 16px;
     margin-top: -10px;
-}
-
-.signIn-content{
-    width: 100%;
-    font-size: 20px;
-    height: 70%;
 }
 
 .footer {

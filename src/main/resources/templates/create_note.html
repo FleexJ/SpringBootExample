@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{createNote.title}">Create new note</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div class="content">
+    <div th:replace="fragments/header :: header-layout"></div>
+    <div class="createNote-content">
+        <form class="createNote-form"
+              th:method="POST"
+              th:action="@{/create_note}"
+              th:object="${note}">
+
+            <h4 th:text="#{createNote.title}">Create new note</h4>
+
+            <label for="title"
+                   th:text="#{createNote.title.text}">
+                Title
+            </label>
+            <input type="text" id="title" placeholder="Title"
+                   th:field="*{title}"
+                   th:placeholder="#{createNote.title.text}"/>
+            <p class="validationError"
+               th:if="${#fields.hasErrors('title')}"
+               th:errors="*{title}">
+            </p>
+            <br>
+
+            <label for="content" th:text="#{createNote.content.text}">
+                Content
+            </label>
+            <textarea rows="5" id="content" placeholder="Content"
+                      th:placeholder="#{createNote.content.text}"
+                      th:field="*{content}"></textarea>
+            <p class="validationError"
+               th:if="${#fields.hasErrors('content')}"
+               th:errors="*{content}">
+            </p>
+            <br>
+
+            <input type="submit" value="Create" th:value="#{createNote.submit.value}"/>
+        </form>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
