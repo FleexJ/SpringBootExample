@@ -1,7 +1,7 @@
 package com.example.springboot.entity;
 
 import javax.persistence.*;
-import java.util.Calendar;
+import java.util.Date;
 
 @Entity
 @Table(name = "notes")
@@ -12,14 +12,12 @@ public class Note {
     private int idUser;
     private String title;
     private String content;
-    private Calendar created;
+    private Date created;
 
     public Note() {
     }
 
-
-
-    public Note(int id, int idUser, String title, String content, Calendar created) {
+    public Note(int id, int idUser, String title, String content, Date created) {
         this.id = id;
         this.idUser = idUser;
         this.title = title;
@@ -59,11 +57,11 @@ public class Note {
         this.content = content;
     }
 
-    public Calendar getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Calendar created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 }

@@ -27,10 +27,14 @@ public class NoteValidator implements Validator {
     public void validate(Object o, Errors errors) {
         Note note = (Note) o;
 
-        if (note.getTitle().isEmpty())
-            errors.rejectValue("title", "", messageSource.getMessage("noteValidator.title.required", null, LocaleContextHolder.getLocale()));
+        if (note.getTitle().isEmpty()) {
+            String message = messageSource.getMessage("noteValidator.title.required", null, LocaleContextHolder.getLocale());
+            errors.rejectValue("title", "", message);
+        }
 
-        if (note.getContent().isEmpty())
-            errors.rejectValue("content", "", messageSource.getMessage("noteValidator.content.required", null, LocaleContextHolder.getLocale()));
+        if (note.getContent().isEmpty()) {
+            String message = messageSource.getMessage("noteValidator.content.required", null, LocaleContextHolder.getLocale());
+            errors.rejectValue("content", "", message);
+        }
     }
 }

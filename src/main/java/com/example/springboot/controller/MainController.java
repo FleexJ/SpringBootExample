@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.Calendar;
 
 @Controller
@@ -85,9 +86,9 @@ public class MainController {
         if (result.hasErrors())
             return "create_note";
         note.setIdUser(user.getId());
-        note.setCreated(Calendar.getInstance());
+        note.setCreated(new Date());
         noteService.addNote(note);
-        return "redirect:/";
+        return "redirect:/my_notes";
     }
 
 
@@ -97,5 +98,53 @@ public class MainController {
         model.addAttribute("currentUser", user);
         model.addAttribute("notes", noteService.getAllNotesByUserId(user.getId()));
         return "my_notes";
+    }
+
+
+    @GetMapping("/delete_note")
+    public String deleteNotePageGET(@AuthenticationPrincipal User user,
+                                    @RequestParam(value = "id") int id) {
+        Note note = noteService.getById(id);
+        //Если такой записи нет или это не запись текущего пользователя
+        if (note == null || note.getIdUser() != user.getId()) {
+            return "redirect:/";
+        }
+        noteService.deleteNote(id);
+        return "redirect:/my_notes";
+    }
+
+
+    @GetMapping("/edit_note")
+    public String editNotePageGET(@AuthenticationPrincipal User user,
+                                  @RequestParam(value = "id") int id,
+                                  Model model) {
+        Note note = noteService.getById(id);
+        //Если такой записи нет или это не запись текущего пользователя
+        if (note == null || note.getIdUser() != user.getId()) {
+            return "redirect:/";
+        }
+        model.addAttribute("currentUser", user);
+        model.addAttribute("note", note);
+        return "edit_note";
+    }
+
+    @PostMapping("/edit_note")
+    public String editNotePagePOST(@AuthenticationPrincipal User user,
+                                   @RequestParam("title") String title,
+                                   @RequestParam("content") String content,
+                                   @RequestParam("id") int id) {
+        Note note = noteService.getById(id);
+        //Если такой записи нет или это не запись текущего пользователя
+        if (note == null || note.getIdUser() != user.getId()) {
+            return "redirect:/";
+        }
+        //Если хотя бы одно из полей пустое
+        if (title == null || content == null || title.isEmpty() || content.isEmpty()) {
+            return "redirect:/edit_note?id=" + id;
+        }
+        note.setTitle(title);
+        note.setContent(content);
+        noteService.updateNote(note);
+        return "redirect:/my_notes";
     }
 }

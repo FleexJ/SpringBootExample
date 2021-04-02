@@ -34,8 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/sign_in", "/sign_up").anonymous()
-                .antMatchers("/create_note", "/my_notes", "/my_profile").authenticated()
-                .antMatchers("/admin/**").hasAuthority(User.ROLE_ADMIN_AUTHORITY)
+                .antMatchers("/create_note", "/my_notes", "/my_profile", "/delete_note", "/edit_note").authenticated()
+                .antMatchers("/admin/**").hasRole(User.ROLE_ADMIN)
                 .and().csrf().disable()
                 .formLogin()
                 .loginPage("/sign_in")

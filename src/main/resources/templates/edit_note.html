@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{editNote.title}">Edit note</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div class="content">
+    <div th:replace="fragments/header :: header-layout"></div>
+    <div class="editNote-content">
+        <form class="editNote-form"
+              th:method="POST"
+              th:action="@{/edit_note} + '?id=' + ${note.id}">
+
+            <h4 th:text="#{editNote.title}">Edit note</h4>
+
+            <label for="title"
+                   th:text="#{editNote.title.text}">
+                Title
+            </label>
+            <input type="text" id="title" name="title" placeholder="Title"
+                   th:value="${note.title}"
+                   th:placeholder="#{editNote.title.text}"/>
+            <br>
+
+            <label for="content" th:text="#{editNote.content.text}">
+                Content
+            </label>
+            <textarea rows="5" id="content" name="content" placeholder="Content"
+                      th:text="${note.content}"
+                      th:placeholder="#{editNote.content.text}">
+            </textarea>
+            <br>
+
+            <input type="submit" value="Apply" th:value="#{editNote.submit.value}"/>
+        </form>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

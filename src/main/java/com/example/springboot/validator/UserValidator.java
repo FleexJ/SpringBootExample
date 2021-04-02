@@ -31,16 +31,24 @@ public class UserValidator implements Validator {
         User user = (User) o;
 
         User userEmail = userService.getUserByEmail(user.getEmail());
-        if (userEmail != null && user.getId() != userEmail.getId())
-            errors.rejectValue("email", "", messageSource.getMessage("userValidator.email.notEmpty", null, LocaleContextHolder.getLocale()));
+        if (userEmail != null && user.getId() != userEmail.getId()) {
+            String message =  messageSource.getMessage("userValidator.email.notEmpty", null, LocaleContextHolder.getLocale());
+            errors.rejectValue("email", "", message);
+        }
 
-        if (user.getName().isEmpty())
-            errors.rejectValue("name", "",messageSource.getMessage("userValidator.name.required", null, LocaleContextHolder.getLocale()));
+        if (user.getName().isEmpty()) {
+            String message = messageSource.getMessage("userValidator.name.required", null, LocaleContextHolder.getLocale());
+            errors.rejectValue("name", "", message);
+        }
 
-        if (!user.getEmail().matches("^\\w+@\\w+\\.\\w+$"))
-            errors.rejectValue("email", "", messageSource.getMessage("userValidator.email.incorrect", null, LocaleContextHolder.getLocale()));
+        if (!user.getEmail().matches("^\\w+@\\w+\\.\\w+$")) {
+            String message = messageSource.getMessage("userValidator.email.incorrect", null, LocaleContextHolder.getLocale());
+            errors.rejectValue("email", "", message);
+        }
 
-        if (user.getPassword().length() < 5 || user.getPassword().length() > 30)
-            errors.rejectValue("password", "",messageSource.getMessage("userValidator.password.incorrect", null, LocaleContextHolder.getLocale()));
+        if (user.getPassword().length() < 5 || user.getPassword().length() > 30) {
+            String message = messageSource.getMessage("userValidator.password.incorrect", null, LocaleContextHolder.getLocale());
+            errors.rejectValue("password", "", message);
+        }
     }
 }

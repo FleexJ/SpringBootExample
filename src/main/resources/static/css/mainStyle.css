@@ -92,14 +92,14 @@ label{
     color: aliceblue;
 }
 
-.index-content, .signUp-content, .signIn-content, .createNote-content{
+.index-content, .signUp-content, .signIn-content, .createNote-content, .myNotes-content, .editNote-content{
     width: 100%;
     font-size: 20px;
-    height: 70%;
 }
 
 .note-one{
     border: 1px solid #5bab0f;
+    margin-bottom: 50px;
 }
 
 .note-title{
@@ -116,6 +116,7 @@ label{
 .note-created{
     font-size: 15px;
     padding-left: 10px;
+    border-bottom: 1px solid #b7aead;
 }
 
 form{
@@ -127,6 +128,21 @@ form{
     color: #bd2a31;
     font-size: 16px;
     margin-top: -10px;
+}
+
+.myNotes-content a{
+    padding-left: 10px;
+    padding-right: 10px;
+    border-right: 1px solid #5bab0f;
+}
+
+.myNotes-content a:hover{
+    background: #5bab0f;
+    color: aliceblue;
+}
+
+.myNotes-content a:not(:first-of-type){
+    margin-left: -10px;
 }
 
 .footer {
