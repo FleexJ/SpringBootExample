@@ -48,7 +48,7 @@ public class MainConfig {
     public MessageSource messageSource(){
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasename("classpath:messages");
-        messageSource.setDefaultEncoding("windows-1251");
+        messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
 }
