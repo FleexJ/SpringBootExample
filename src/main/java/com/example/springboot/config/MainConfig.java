@@ -2,9 +2,11 @@ package com.example.springboot.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -40,5 +42,13 @@ public class MainConfig {
         localContainerEntityManagerFactoryBean.setPackagesToScan("com.example.springboot.entity");
         localContainerEntityManagerFactoryBean.afterPropertiesSet();
         return localContainerEntityManagerFactoryBean.getObject();
+    }
+
+    @Bean
+    public MessageSource messageSource(){
+        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+        messageSource.setBasename("classpath:messages");
+        messageSource.setDefaultEncoding("windows-1251");
+        return messageSource;
     }
 }
