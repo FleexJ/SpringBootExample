@@ -7,6 +7,8 @@ import com.example.springboot.service.UserService;
 import com.example.springboot.validator.NoteValidator;
 import com.example.springboot.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,25 +16,27 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
-import java.util.Calendar;
 
 @Controller
 public class MainController {
 
-    UserValidator userValidator;
-    UserService userService;
-    NoteValidator noteValidator;
-    NoteService noteService;
+    private final UserValidator userValidator;
+    private final UserService userService;
+    private final NoteValidator noteValidator;
+    private final NoteService noteService;
+    private final MessageSource messageSource;
 
     @Autowired
     public MainController(UserValidator userValidator,
                           UserService userService,
                           NoteValidator noteValidator,
-                          NoteService noteService) {
+                          NoteService noteService,
+                          MessageSource messageSource) {
         this.userValidator = userValidator;
         this.userService = userService;
         this.noteService = noteService;
         this.noteValidator = noteValidator;
+        this.messageSource = messageSource;
     }
 
     @GetMapping("/")
@@ -117,12 +121,15 @@ public class MainController {
     @GetMapping("/edit_note")
     public String editNotePageGET(@AuthenticationPrincipal User user,
                                   @RequestParam(value = "id") int id,
+                                  @RequestParam(required = false) Boolean error,
                                   Model model) {
         Note note = noteService.getById(id);
         //Если такой записи нет или это не запись текущего пользователя
         if (note == null || note.getIdUser() != user.getId()) {
             return "redirect:/";
         }
+        if (error != null && error)
+            model.addAttribute("error", true);
         model.addAttribute("currentUser", user);
         model.addAttribute("note", note);
         return "edit_note";
@@ -140,11 +147,60 @@ public class MainController {
         }
         //Если хотя бы одно из полей пустое
         if (title == null || content == null || title.isEmpty() || content.isEmpty()) {
-            return "redirect:/edit_note?id=" + id;
+            return "redirect:/edit_note?id=" + id + "&error=true";
         }
         note.setTitle(title);
         note.setContent(content);
         noteService.updateNote(note);
         return "redirect:/my_notes";
+    }
+
+
+    @GetMapping("/my_profile")
+    public String myProfilePageGET(@AuthenticationPrincipal User user,
+                                   Model model) {
+        model.addAttribute("currentUser", user);
+        return "my_profile";
+    }
+
+    @GetMapping("/my_profile/edit")
+    public String editMyProfilePageGET(@AuthenticationPrincipal User user,
+                                       @RequestParam(required = false, value = "errorEmail") Boolean errorEmail,
+                                       @RequestParam(required = false, value = "errorName") Boolean errorName,
+                                       Model model) {
+        if (userService.getById(user.getId()) == null)
+            return "redirect:/";
+
+        if (errorEmail != null && errorEmail)
+            model.addAttribute("errorEmail", true);
+        if (errorName != null && errorName)
+            model.addAttribute("errorName", true);
+        model.addAttribute("currentUser", user);
+        return "editMyProfile";
+    }
+
+    @PostMapping("/my_profile/edit")
+    public String editMyProfilePagePOST(@AuthenticationPrincipal User user,
+                                        @RequestParam(value = "email") String email,
+                                        @RequestParam(value = "name") String name) {
+        if (userService.getById(user.getId()) == null)
+            return "redirect:/";
+
+        User userEmail = userService.getUserByEmail(email);
+        String errorEmail = "";
+        if (email.isEmpty() || (userEmail != null && user.getId() != userEmail.getId())) {
+            errorEmail += "&errorEmail=" + true;
+        }
+        String errorName = "";
+        if (name.isEmpty()) {
+            errorName += "&errorName=" + true;
+        }
+        if (!errorEmail.isEmpty() || !errorName.isEmpty())
+            return "redirect:/my_profile/edit?" + user.getId() + errorEmail + errorName;
+
+        user.setEmail(email);
+        user.setName(name);
+        userService.updateUser(user);
+        return "redirect:/my_profile?id=" + user.getId();
     }
 }

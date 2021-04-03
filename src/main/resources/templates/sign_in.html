@@ -23,12 +23,14 @@
                    th:placeholder="#{signIn.password.text}"/>
             <br>
 
-            <p th:if="${error} == true" class="validationError" th:text="#{signIn.error.text}">
+            <p th:if="${error} == true" class="validationError"
+               th:text="#{signIn.error.text}">
                 User with such data not found
             </p>
             <br>
 
-            <input type="submit" value="Sign In" th:value="#{signIn.submit.value}"/>
+            <input type="submit" value="Sign In"
+                   th:value="#{signIn.submit.value}"/>
         </form>
     </div>
 </div>

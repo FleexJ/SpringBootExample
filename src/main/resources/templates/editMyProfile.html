@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{editMyProfile.title}">Edit my profile</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div class="content">
+    <div th:replace="fragments/header :: header-layout"></div>
+    <div class="editMyProfile-content">
+        <form class="editMyProfile-form" method="post" th:action="@{/my_profile/edit}">
+            <h4 th:text="#{editMyProfile.title}">Edit my profile</h4>
+
+            <label for="email" th:text="#{editMyProfile.email.text}">Email</label>
+            <input type="text" id="email" name="email" placeholder="Email"
+                   th:value="${currentUser.email}"
+                   th:placeholder="#{editMyProfile.email.text}"/>
+            <br>
+            <p class="validationError"
+               th:if="${errorEmail}"
+               th:text="#{editMyProfile.errorEmail}"></p>
+
+            <label for="name" th:text="#{editMyProfile.name.text}">Name</label>
+            <input type="text" id="name" name="name" placeholder="Name"
+                   th:value="${currentUser.name}"
+                   th:placeholder="#{editMyProfile.name.text}"/>
+            <br>
+            <p class="validationError"
+               th:if="${errorName}"
+               th:text="#{editMyProfile.errorName}"></p>
+
+            <input type="submit" value="Apply"
+                   th:value="#{editMyProfile.submit.value}"/>
+        </form>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

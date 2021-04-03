@@ -34,6 +34,11 @@
             </textarea>
             <br>
 
+            <p class="validationError" th:if="${error}" th:text="#{editNote.error}">
+                Incorrect fields
+            </p>
+            <br>
+
             <input type="submit" value="Apply" th:value="#{editNote.submit.value}"/>
         </form>
     </div>

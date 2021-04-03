@@ -92,7 +92,7 @@ label{
     color: aliceblue;
 }
 
-.index-content, .signUp-content, .signIn-content, .createNote-content, .myNotes-content, .editNote-content{
+.index-content, .signUp-content, .signIn-content, .createNote-content, .myNotes-content, .editNote-content, .myProfile-content, .editMyProfile-content{
     width: 100%;
     font-size: 20px;
 }
@@ -128,6 +128,7 @@ form{
     color: #bd2a31;
     font-size: 16px;
     margin-top: -10px;
+    margin-bottom: 5px;
 }
 
 .myNotes-content a{
@@ -144,6 +145,23 @@ form{
 .myNotes-content a:not(:first-of-type){
     margin-left: -10px;
 }
+
+.myProfile-content{
+    padding: 10px;
+    border: 1px solid #b7aead;
+}
+
+.myProfile-content p, .myProfile-content a{
+    margin-bottom: 10px;
+    display: block;
+}
+
+.myProfile-content a:last-of-type{
+    margin-top: -10px;
+    padding-top: 5px;
+    border-top: 1px solid #b7aead;
+}
+
 
 .footer {
     padding-top: 10px;

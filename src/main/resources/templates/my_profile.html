@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{myProfile.title}">My profile</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div class="content">
+    <div th:replace="fragments/header :: header-layout"></div>
+    <div class="myProfile-content">
+        <h4 th:text="#{myProfile.title}">Profile</h4>
+
+        <p th:text="#{myProfile.name.text} + ': ' + ${currentUser.email}"></p>
+        <p th:text="#{myProfile.email.text} + ': ' + ${currentUser.name}"></p>
+        <a th:href="@{/my_profile/edit}"
+           th:text="#{myProfile.change.ref}">
+            Change
+        </a>
+        <br>
+
+        <a th:href="@{/my_profile/editPassword}"
+           th:text="#{myProfile.password.change.ref}">
+            Change password
+        </a>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

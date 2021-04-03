@@ -20,6 +20,10 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public User getById(int id) {
+        return userRepository.getOne(id);
+    }
+
     public User getUserByEmail(String email) {
         return userRepository.getFirstByEmail(email);
     }
@@ -32,4 +36,8 @@ public class UserService {
         userRepository.save(user);
     }
 
+    @Transactional
+    public void updateUser(User user) {
+        userRepository.save(user);
+    }
 }
