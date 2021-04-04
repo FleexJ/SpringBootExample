@@ -21,7 +21,7 @@
                     <th>Name</th>
                     <th>Role</th>
                 </tr>
-                <tr th:each="user : ${users}" th:if="${user.id != currentUser.id}">
+                <tr th:each="user : ${users}" th:if="${user.role != 'ADMIN'}">
                     <td th:text="${user.id}"></td>
                     <td th:text="${user.email}"></td>
                     <td th:text="${user.name}"></td>
