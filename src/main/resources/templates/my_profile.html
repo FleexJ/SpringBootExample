@@ -12,8 +12,8 @@
     <div class="myProfile-content">
         <h4 th:text="#{myProfile.title}">Profile</h4>
 
-        <p th:text="#{myProfile.name.text} + ': ' + ${currentUser.email}"></p>
-        <p th:text="#{myProfile.email.text} + ': ' + ${currentUser.name}"></p>
+        <p th:text="#{myProfile.email.text} + ': ' + ${currentUser.email}"></p>
+        <p th:text="#{myProfile.name.text} + ': ' + ${currentUser.name}"></p>
         <a th:href="@{/my_profile/edit}"
            th:text="#{myProfile.change.ref}">
             Change

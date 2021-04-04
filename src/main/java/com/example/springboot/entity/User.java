@@ -12,6 +12,8 @@ public class User {
     public final static String ROLE_ADMIN = "ADMIN";
     public final static String ROLE_ADMIN_AUTHORITY = "ROLE_ADMIN";
 
+    public final static String emailRegex = "^\\w+@\\w+\\.\\w+$";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -36,6 +38,10 @@ public class User {
         this.email = email;
         this.password = password;
         this.role = role;
+    }
+
+    public boolean validEmail() {
+        return email.matches(emailRegex);
     }
 
     public int getId() {

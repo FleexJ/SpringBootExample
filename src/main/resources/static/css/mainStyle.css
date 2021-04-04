@@ -3,7 +3,7 @@
     font-family: "Ubuntu Mono", monospace;
     transition: 0.1s;
     background: #eee8e8;
-    color: #162433
+    color: #162433;
 }
 
 a{
@@ -36,7 +36,7 @@ input[type=submit]{
 label{
     vertical-align: top;
     display: inline-block;
-    width: 100px;
+    width: 120px;
 }
 
 .content{
@@ -92,9 +92,17 @@ label{
     color: aliceblue;
 }
 
-.index-content, .signUp-content, .signIn-content, .createNote-content, .myNotes-content, .editNote-content, .myProfile-content, .editMyProfile-content{
+.index-content,
+.signUp-content,
+.signIn-content,
+.createNote-content,
+.myNotes-content,
+.editNote-content,
+.myProfile-content,
+.editMyProfile-content,
+.editPassword-content{
     width: 100%;
-    font-size: 20px;
+    font-size: 17px;
 }
 
 .note-one{
@@ -142,11 +150,8 @@ form{
     color: aliceblue;
 }
 
-.myNotes-content a:not(:first-of-type){
-    margin-left: -10px;
-}
-
 .myProfile-content{
+    width: auto;
     padding: 10px;
     border: 1px solid #b7aead;
 }
@@ -161,7 +166,6 @@ form{
     padding-top: 5px;
     border-top: 1px solid #b7aead;
 }
-
 
 .footer {
     padding-top: 10px;

@@ -41,7 +41,7 @@ public class UserValidator implements Validator {
             errors.rejectValue("name", "", message);
         }
 
-        if (!user.getEmail().matches("^\\w+@\\w+\\.\\w+$")) {
+        if (!user.validEmail()) {
             String message = messageSource.getMessage("userValidator.email.incorrect", null, LocaleContextHolder.getLocale());
             errors.rejectValue("email", "", message);
         }

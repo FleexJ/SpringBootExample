@@ -7,9 +7,8 @@ import com.example.springboot.service.UserService;
 import com.example.springboot.validator.NoteValidator;
 import com.example.springboot.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,24 +23,24 @@ public class MainController {
     private final UserService userService;
     private final NoteValidator noteValidator;
     private final NoteService noteService;
-    private final MessageSource messageSource;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public MainController(UserValidator userValidator,
                           UserService userService,
                           NoteValidator noteValidator,
                           NoteService noteService,
-                          MessageSource messageSource) {
+                          PasswordEncoder passwordEncoder) {
         this.userValidator = userValidator;
         this.userService = userService;
         this.noteService = noteService;
         this.noteValidator = noteValidator;
-        this.messageSource = messageSource;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/")
-    public String indexPageGET(@AuthenticationPrincipal User user,
-                               Model model) {
+    public String indexGET(@AuthenticationPrincipal User user,
+                           Model model) {
         model.addAttribute("currentUser", user);
         model.addAttribute("notes", noteService.getAllNotes());
         return "index";
@@ -49,13 +48,13 @@ public class MainController {
 
 
     @GetMapping("/sign_up")
-    public String signUpPageGET(@ModelAttribute("user") User user) {
+    public String signUpGET(@ModelAttribute("user") User user) {
         return "sign_up";
     }
 
     @PostMapping("/sign_up")
-    public String signUpPagePOST(@ModelAttribute User user,
-                                 BindingResult result) {
+    public String signUpPOST(@ModelAttribute User user,
+                             BindingResult result) {
         userValidator.validate(user, result);
         if (result.hasErrors())
             return "sign_up";
@@ -66,8 +65,8 @@ public class MainController {
 
 
     @GetMapping("/sign_in")
-    public String signInPageGET(@RequestParam(value = "error", required = false) Boolean error,
-                                Model model) {
+    public String signInGET(@RequestParam(value = "error", required = false) Boolean error,
+                            Model model) {
         if (error != null && error)
             model.addAttribute("error", true);
         return "sign_in";
@@ -75,17 +74,17 @@ public class MainController {
 
 
     @GetMapping("/create_note")
-    public String createNotePageGET(@ModelAttribute("note") Note note,
-                                    @AuthenticationPrincipal User user,
-                                    Model model) {
+    public String createNoteGET(@ModelAttribute("note") Note note,
+                                @AuthenticationPrincipal User user,
+                                Model model) {
         model.addAttribute("currentUser", user);
         return "create_note";
     }
 
     @PostMapping("/create_note")
-    public String createNotePagePOST(@ModelAttribute Note note,
-                                     @AuthenticationPrincipal User user,
-                                     BindingResult result) {
+    public String createNotePOST(@ModelAttribute Note note,
+                                 @AuthenticationPrincipal User user,
+                                 BindingResult result) {
         noteValidator.validate(note, result);
         if (result.hasErrors())
             return "create_note";
@@ -97,8 +96,8 @@ public class MainController {
 
 
     @GetMapping("/my_notes")
-    public String myNotesPageGET(@AuthenticationPrincipal User user,
-                                 Model model) {
+    public String myNotesGET(@AuthenticationPrincipal User user,
+                             Model model) {
         model.addAttribute("currentUser", user);
         model.addAttribute("notes", noteService.getAllNotesByUserId(user.getId()));
         return "my_notes";
@@ -106,8 +105,8 @@ public class MainController {
 
 
     @GetMapping("/delete_note")
-    public String deleteNotePageGET(@AuthenticationPrincipal User user,
-                                    @RequestParam(value = "id") int id) {
+    public String deleteNoteGET(@AuthenticationPrincipal User user,
+                                @RequestParam(value = "id") int id) {
         Note note = noteService.getById(id);
         //Если такой записи нет или это не запись текущего пользователя
         if (note == null || note.getIdUser() != user.getId()) {
@@ -119,10 +118,10 @@ public class MainController {
 
 
     @GetMapping("/edit_note")
-    public String editNotePageGET(@AuthenticationPrincipal User user,
-                                  @RequestParam(value = "id") int id,
-                                  @RequestParam(required = false) Boolean error,
-                                  Model model) {
+    public String editNoteGET(@AuthenticationPrincipal User user,
+                              @RequestParam(value = "id") int id,
+                              @RequestParam(required = false) Boolean error,
+                              Model model) {
         Note note = noteService.getById(id);
         //Если такой записи нет или это не запись текущего пользователя
         if (note == null || note.getIdUser() != user.getId()) {
@@ -136,10 +135,10 @@ public class MainController {
     }
 
     @PostMapping("/edit_note")
-    public String editNotePagePOST(@AuthenticationPrincipal User user,
-                                   @RequestParam("title") String title,
-                                   @RequestParam("content") String content,
-                                   @RequestParam("id") int id) {
+    public String editNotePOST(@AuthenticationPrincipal User user,
+                               @RequestParam("title") String title,
+                               @RequestParam("content") String content,
+                               @RequestParam("id") int id) {
         Note note = noteService.getById(id);
         //Если такой записи нет или это не запись текущего пользователя
         if (note == null || note.getIdUser() != user.getId()) {
@@ -157,17 +156,17 @@ public class MainController {
 
 
     @GetMapping("/my_profile")
-    public String myProfilePageGET(@AuthenticationPrincipal User user,
-                                   Model model) {
+    public String myProfileGET(@AuthenticationPrincipal User user,
+                               Model model) {
         model.addAttribute("currentUser", user);
         return "my_profile";
     }
 
     @GetMapping("/my_profile/edit")
-    public String editMyProfilePageGET(@AuthenticationPrincipal User user,
-                                       @RequestParam(required = false, value = "errorEmail") Boolean errorEmail,
-                                       @RequestParam(required = false, value = "errorName") Boolean errorName,
-                                       Model model) {
+    public String editMyProfileGET(@AuthenticationPrincipal User user,
+                                   @RequestParam(required = false, value = "errorEmail") Boolean errorEmail,
+                                   @RequestParam(required = false, value = "errorName") Boolean errorName,
+                                   Model model) {
         if (userService.getById(user.getId()) == null)
             return "redirect:/";
 
@@ -180,15 +179,15 @@ public class MainController {
     }
 
     @PostMapping("/my_profile/edit")
-    public String editMyProfilePagePOST(@AuthenticationPrincipal User user,
-                                        @RequestParam(value = "email") String email,
-                                        @RequestParam(value = "name") String name) {
+    public String editMyProfilePOST(@AuthenticationPrincipal User user,
+                                    @RequestParam(value = "email") String email,
+                                    @RequestParam(value = "name") String name) {
         if (userService.getById(user.getId()) == null)
             return "redirect:/";
 
         User userEmail = userService.getUserByEmail(email);
         String errorEmail = "";
-        if (email.isEmpty() || (userEmail != null && user.getId() != userEmail.getId())) {
+        if (!email.matches(User.emailRegex) || (userEmail != null && user.getId() != userEmail.getId())) {
             errorEmail += "&errorEmail=" + true;
         }
         String errorName = "";
@@ -196,11 +195,50 @@ public class MainController {
             errorName += "&errorName=" + true;
         }
         if (!errorEmail.isEmpty() || !errorName.isEmpty())
-            return "redirect:/my_profile/edit?" + user.getId() + errorEmail + errorName;
+            return "redirect:/my_profile/edit?" + errorEmail + errorName;
 
         user.setEmail(email);
         user.setName(name);
         userService.updateUser(user);
-        return "redirect:/my_profile?id=" + user.getId();
+        return "redirect:/my_profile";
+    }
+
+
+    @GetMapping("/my_profile/editPassword")
+    public String editPasswordGET(@AuthenticationPrincipal User user,
+                                  @RequestParam(required = false, value = "errorCur") Boolean errorCur,
+                                  @RequestParam(required = false, value = "errorNew") Boolean errorNew,
+                                  Model model) {
+        if (userService.getById(user.getId()) == null)
+            return "redirect:/";
+        if (errorCur != null && errorCur)
+            model.addAttribute("errorCur", true);
+        if (errorNew != null && errorNew)
+            model.addAttribute("errorNew", true);
+
+        model.addAttribute("currentUser", user);
+        return "editPassword";
+    }
+
+    @PostMapping("/my_profile/editPassword")
+    public String editPasswordPOST(@AuthenticationPrincipal User user,
+                                   @RequestParam("curPassword") String curPassword,
+                                   @RequestParam("newPassword") String newPassword,
+                                   @RequestParam("repPassword") String repPassword) {
+        if (userService.getById(user.getId()) == null)
+            return "redirect:/";
+
+        if (!passwordEncoder.matches(curPassword, user.getPassword()))
+            return "redirect:/my_profile/editPassword?errorCur=" + true;
+
+        if (newPassword.length() > 30 || newPassword.length() < 5 || !newPassword.equals(repPassword))
+            return "redirect:/my_profile/editPassword?errorNew=" + true;
+
+        user.setPassword(
+                passwordEncoder.encode(newPassword)
+        );
+        userService.updateUser(user);
+
+        return "redirect:/my_profile";
     }
 }
