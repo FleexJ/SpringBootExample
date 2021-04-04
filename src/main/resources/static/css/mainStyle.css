@@ -110,6 +110,10 @@ label{
     margin-bottom: 50px;
 }
 
+.note-one a{
+    padding-left: 10px;
+}
+
 .note-title{
     padding: 10px;
     background: #5bab0f;

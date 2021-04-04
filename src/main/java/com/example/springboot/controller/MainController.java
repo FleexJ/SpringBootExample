@@ -73,7 +73,7 @@ public class MainController {
     }
 
 
-    @GetMapping("/create_note")
+    @GetMapping("/note/create_note")
     public String createNoteGET(@ModelAttribute("note") Note note,
                                 @AuthenticationPrincipal User user,
                                 Model model) {
@@ -81,7 +81,7 @@ public class MainController {
         return "create_note";
     }
 
-    @PostMapping("/create_note")
+    @PostMapping("/note/create_note")
     public String createNotePOST(@ModelAttribute Note note,
                                  @AuthenticationPrincipal User user,
                                  BindingResult result) {
@@ -91,11 +91,11 @@ public class MainController {
         note.setIdUser(user.getId());
         note.setCreated(new Date());
         noteService.addNote(note);
-        return "redirect:/my_notes";
+        return "redirect:/note/my_notes";
     }
 
 
-    @GetMapping("/my_notes")
+    @GetMapping("/note/my_notes")
     public String myNotesGET(@AuthenticationPrincipal User user,
                              Model model) {
         model.addAttribute("currentUser", user);
@@ -104,20 +104,20 @@ public class MainController {
     }
 
 
-    @GetMapping("/delete_note")
+    @GetMapping("/note/delete_note")
     public String deleteNoteGET(@AuthenticationPrincipal User user,
                                 @RequestParam(value = "id") int id) {
         Note note = noteService.getById(id);
         //Если такой записи нет или это не запись текущего пользователя
-        if (note == null || note.getIdUser() != user.getId()) {
+        if (note == null || (note.getIdUser() != user.getId() && !user.isAdmin())) {
             return "redirect:/";
         }
         noteService.deleteNote(id);
-        return "redirect:/my_notes";
+        return "redirect:/note/my_notes";
     }
 
 
-    @GetMapping("/edit_note")
+    @GetMapping("/note/edit_note")
     public String editNoteGET(@AuthenticationPrincipal User user,
                               @RequestParam(value = "id") int id,
                               @RequestParam(required = false) Boolean error,
@@ -134,7 +134,7 @@ public class MainController {
         return "edit_note";
     }
 
-    @PostMapping("/edit_note")
+    @PostMapping("/note/edit_note")
     public String editNotePOST(@AuthenticationPrincipal User user,
                                @RequestParam("title") String title,
                                @RequestParam("content") String content,
@@ -146,12 +146,12 @@ public class MainController {
         }
         //Если хотя бы одно из полей пустое
         if (title == null || content == null || title.isEmpty() || content.isEmpty()) {
-            return "redirect:/edit_note?id=" + id + "&error=true";
+            return "redirect:/note/edit_note?id=" + id + "&error=true";
         }
         note.setTitle(title);
         note.setContent(content);
         noteService.updateNote(note);
-        return "redirect:/my_notes";
+        return "redirect:/note/my_notes";
     }
 
 
@@ -211,11 +211,11 @@ public class MainController {
                                   Model model) {
         if (userService.getById(user.getId()) == null)
             return "redirect:/";
+
         if (errorCur != null && errorCur)
             model.addAttribute("errorCur", true);
         if (errorNew != null && errorNew)
             model.addAttribute("errorNew", true);
-
         model.addAttribute("currentUser", user);
         return "editPassword";
     }
@@ -230,15 +230,12 @@ public class MainController {
 
         if (!passwordEncoder.matches(curPassword, user.getPassword()))
             return "redirect:/my_profile/editPassword?errorCur=" + true;
-
         if (newPassword.length() > 30 || newPassword.length() < 5 || !newPassword.equals(repPassword))
             return "redirect:/my_profile/editPassword?errorNew=" + true;
-
         user.setPassword(
                 passwordEncoder.encode(newPassword)
         );
         userService.updateUser(user);
-
         return "redirect:/my_profile";
     }
 }

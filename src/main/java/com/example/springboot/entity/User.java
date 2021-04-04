@@ -44,6 +44,14 @@ public class User {
         return email.matches(emailRegex);
     }
 
+    public boolean isAdmin() {
+        return role.equals(ROLE_ADMIN);
+    }
+
+    public boolean isUser() {
+        return role.equals(ROLE_USER);
+    }
+
     public int getId() {
         return id;
     }

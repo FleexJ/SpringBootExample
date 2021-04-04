@@ -12,7 +12,7 @@
     <div class="editNote-content">
         <form class="editNote-form"
               th:method="POST"
-              th:action="@{/edit_note} + '?id=' + ${note.id}">
+              th:action="@{/note/edit_note} + '?id=' + ${note.id}">
 
             <h4 th:text="#{editNote.title}">Edit note</h4>
 

@@ -17,6 +17,12 @@
             <h5 class="note-title" th:text="${note.title}"></h5>
             <p class="note-content" th:text="${note.content}"></p>
             <p class="note-created" th:text="#{index.content.created} + ' ' + ${note.created}"></p>
+            <div th:if="${currentUser} != null">
+                <a th:if="${currentUser.role} == 'ADMIN'"
+                   th:href="@{/note/delete_note?id=} + ${note.id}"
+                   th:text="#{index.content.delete}">Delete
+                </a>
+            </div>
         </div>
     </div>
 </div>

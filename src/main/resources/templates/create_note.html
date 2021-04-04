@@ -12,7 +12,7 @@
     <div class="createNote-content">
         <form class="createNote-form"
               th:method="POST"
-              th:action="@{/create_note}"
+              th:action="@{/note/create_note}"
               th:object="${note}">
 
             <h4 th:text="#{createNote.title}">Create new note</h4>
