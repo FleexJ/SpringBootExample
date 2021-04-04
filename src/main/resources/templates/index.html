@@ -19,7 +19,7 @@
             <p class="note-created" th:text="#{index.content.created} + ' ' + ${note.created}"></p>
             <div th:if="${currentUser} != null">
                 <a th:if="${currentUser.role} == 'ADMIN'"
-                   th:href="@{/note/delete_note?id=} + ${note.id}"
+                   th:href="@{/admin/note/delete?id=} + ${note.id}"
                    th:text="#{index.content.delete}">Delete
                 </a>
             </div>

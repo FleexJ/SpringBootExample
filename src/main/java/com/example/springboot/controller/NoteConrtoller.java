@@ -62,10 +62,11 @@ public class NoteConrtoller {
                                 @RequestParam(value = "id") int id) {
         Note note = noteService.getById(id);
         //Если такой записи нет или это не запись текущего пользователя
-        if (note == null || (note.getIdUser() != user.getId() && !user.isAdmin())) {
+        if (note == null || note.getIdUser() != user.getId()) {
             return "redirect:/";
         }
         noteService.deleteNote(id);
+        System.out.println("User " + user.getEmail() + " delete his note id: " + id);
         return "redirect:/note/my_notes";
     }
 

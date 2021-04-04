@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{users.title}">Users</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div class="content">
+    <div th:replace="fragments/header :: header-layout"></div>
+    <div class="users-content">
+        <h4 th:text="#{users.title}">Users</h4>
+        <h5 th:if="${users.size == 0}" th:text="#{users.empty}">Empty users yet</h5>
+
+        <div th:if="${users.size > 0}" class="users-table">
+            <table cellspacing="40px">
+                <tr>
+                    <th>#</th>
+                    <th>Email</th>
+                    <th>Name</th>
+                    <th>Role</th>
+                </tr>
+                <tr th:each="user : ${users}" th:if="${user.id != currentUser.id}">
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.name}"></td>
+                    <td th:text="${user.role}"></td>
+                    <td>
+                        <a th:href="@{/admin/users/delete?id=} + ${user.id}" th:text="#{users.delete}">Delete</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

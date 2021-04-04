@@ -52,6 +52,7 @@ public class MainController {
             return "sign_up";
         user.setRole(User.ROLE_USER);
         userService.addUser(user);
+        System.out.println("New user: " + user.getEmail());
         return "redirect:/sign_in";
     }
 

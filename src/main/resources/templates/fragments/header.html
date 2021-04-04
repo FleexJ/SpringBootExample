@@ -28,6 +28,9 @@
         <a href="/note/create_note" th:text="#{new.note.ref}">New note</a>
         <a href="/note/my_notes" th:text="#{my.notes.ref}">My notes</a>
         <a href="/my_profile" th:text="#{my.profile.ref}">My profile</a>
+        <a href="/admin/users"
+           th:text="#{users.title}"
+           th:if="${currentUser} != null and ${currentUser.role} == 'ADMIN'">Users</a>
     </div>
 </div>
 </html>

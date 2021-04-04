@@ -100,7 +100,8 @@ label{
 .editNote-content,
 .myProfile-content,
 .editMyProfile-content,
-.editPassword-content{
+.editPassword-content,
+.users-content{
     width: 100%;
     font-size: 17px;
 }
@@ -169,6 +170,10 @@ form{
     margin-top: -10px;
     padding-top: 5px;
     border-top: 1px solid #b7aead;
+}
+
+.users-table{
+    border: 1px solid #b7aead;
 }
 
 .footer {

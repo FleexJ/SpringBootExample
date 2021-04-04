@@ -106,6 +106,6 @@ public class MyProfileController {
                 passwordEncoder.encode(newPassword)
         );
         userService.updateUser(user);
-        return "redirect:/my_profile";
+        return "redirect:/logout";
     }
 }
