@@ -21,13 +21,18 @@
                     <th>Name</th>
                     <th>Role</th>
                 </tr>
-                <tr th:each="user : ${users}" th:if="${user.role != 'ADMIN'}">
+                <tr th:each="user : ${users}">
                     <td th:text="${user.id}"></td>
                     <td th:text="${user.email}"></td>
                     <td th:text="${user.name}"></td>
                     <td th:text="${user.role}"></td>
-                    <td>
-                        <a th:href="@{/admin/users/delete?id=} + ${user.id}" th:text="#{users.delete}">Delete</a>
+                    <td th:if="${user.role != 'ADMIN'}">
+                        <a th:href="@{/admin/users/delete?id=} + ${user.id}"
+                           th:text="#{users.delete}">Delete</a>
+                    </td>
+                    <td th:if="${user.role != 'ADMIN'}">
+                        <a th:href="@{/admin/users/do_admin?id=} + ${user.id}"
+                           th:text="#{users.doAdmin}">Do admin</a>
                     </td>
                 </tr>
             </table>

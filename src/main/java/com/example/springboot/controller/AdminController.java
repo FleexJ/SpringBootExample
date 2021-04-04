@@ -59,4 +59,17 @@ public class AdminController {
         System.out.println("User: " + user.getEmail() + " deleted note id: " + id + " idUser: " + note.getIdUser());
         return "redirect:/";
     }
+
+    @GetMapping("/users/do_admin")
+    public String adminUsersDoAdmin(@AuthenticationPrincipal User user,
+                                    @RequestParam("id") int id) {
+        User userEdit = userService.getById(id);
+        if (userEdit == null)
+            return "redirect:/admin/users";
+
+        userEdit.setRole(User.ROLE_ADMIN);
+        userService.updateUser(user);
+        System.out.println("User: " + user.getEmail() + " give role admin to user: " + userEdit.getEmail());
+        return "redirect:/admin/users";
+    }
 }
