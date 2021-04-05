@@ -26,6 +26,7 @@
                     <td th:text="${user.email}"></td>
                     <td th:text="${user.name}"></td>
                     <td th:text="${user.role}"></td>
+                    <td th:if="${user.id} == ${currentUser.id}" th:text="#{users.me}"></td>
                     <td th:if="${user.role != 'ADMIN'}">
                         <a th:href="@{/admin/users/delete?id=} + ${user.id}"
                            th:text="#{users.delete}">Delete</a>

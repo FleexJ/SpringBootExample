@@ -37,7 +37,7 @@ public class AdminController {
     public String adminUsersDelete(@AuthenticationPrincipal User user,
                                    @RequestParam("id") int id) {
         User userId = userService.getById(id);
-        if (userId == null)
+        if (userId == null || userId.isAdmin())
             return "redirect:/admin/users";
 
         userService.deleteById(id);
