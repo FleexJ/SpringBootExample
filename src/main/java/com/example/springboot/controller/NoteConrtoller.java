@@ -61,12 +61,12 @@ public class NoteConrtoller {
     public String deleteNoteGET(@AuthenticationPrincipal User user,
                                 @RequestParam(value = "id") int id) {
         Note note = noteService.getById(id);
-        //Если такой записи нет или это не запись текущего пользователя
         if (note == null || note.getIdUser() != user.getId()) {
             return "redirect:/";
         }
-        noteService.deleteNote(id);
-        System.out.println("User " + user.getEmail() + " delete his note id: " + id);
+        try {
+            noteService.deleteNote(id);
+        } catch (Exception ignored) {}
         return "redirect:/note/my_notes";
     }
 
@@ -77,7 +77,6 @@ public class NoteConrtoller {
                               @RequestParam(required = false) Boolean error,
                               Model model) {
         Note note = noteService.getById(id);
-        //Если такой записи нет или это не запись текущего пользователя
         if (note == null || note.getIdUser() != user.getId()) {
             return "redirect:/";
         }
@@ -94,7 +93,6 @@ public class NoteConrtoller {
                                @RequestParam("content") String content,
                                @RequestParam("id") int id) {
         Note note = noteService.getById(id);
-        //Если такой записи нет или это не запись текущего пользователя
         if (note == null || note.getIdUser() != user.getId()) {
             return "redirect:/";
         }
@@ -104,7 +102,9 @@ public class NoteConrtoller {
         }
         note.setTitle(title);
         note.setContent(content);
-        noteService.updateNote(note);
+        try {
+            noteService.updateNote(note);
+        } catch (Exception ignored) {}
         return "redirect:/note/my_notes";
     }
 }

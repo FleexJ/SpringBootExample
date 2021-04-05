@@ -33,15 +33,18 @@ public class AdminController {
         return "adminUsers";
     }
 
+    //TODO delete user from session
     @GetMapping("/users/delete")
     public String adminUsersDelete(@AuthenticationPrincipal User user,
                                    @RequestParam("id") int id) {
+
         User userId = userService.getById(id);
         if (userId == null || userId.isAdmin())
             return "redirect:/admin/users";
 
-        userService.deleteById(id);
-        System.out.println("User: " + user.getEmail() + " deleted user: " + userId.getEmail());
+        try {
+            userService.deleteById(id);
+        } catch (Exception ignored) {}
         if (user.getId() == id) {
             return "redirect:/logout";
         }
@@ -49,27 +52,26 @@ public class AdminController {
     }
 
     @GetMapping("/note/delete")
-    public String adminNoteDelete(@AuthenticationPrincipal User user,
-                                  @RequestParam("id") int id) {
+    public String adminNoteDelete(@RequestParam("id") int id) {
         Note note = noteService.getById(id);
         if (note == null)
             return "redirect:/";
 
-        noteService.deleteNote(id);
-        System.out.println("User: " + user.getEmail() + " deleted note id: " + id + " idUser: " + note.getIdUser());
+        try {
+            noteService.deleteNote(id);
+        } catch (Exception ignored) {}
         return "redirect:/";
     }
 
+    //todo update user role in his session
     @GetMapping("/users/do_admin")
-    public String adminUsersDoAdmin(@AuthenticationPrincipal User user,
-                                    @RequestParam("id") int id) {
+    public String adminUsersDoAdmin(@RequestParam("id") int id) {
         User userEdit = userService.getById(id);
         if (userEdit == null)
             return "redirect:/admin/users";
 
         userEdit.setRole(User.ROLE_ADMIN);
-        userService.updateUser(user);
-        System.out.println("User: " + user.getEmail() + " give role admin to user: " + userEdit.getEmail());
+        userService.updateUser(userEdit);
         return "redirect:/admin/users";
     }
 

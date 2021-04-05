@@ -28,16 +28,24 @@ public class NoteService {
 
     @Transactional
     public void deleteNote(int id) {
-        noteRepository.deleteById(id);
+        try {
+            noteRepository.deleteById(id);
+        } catch (Exception ignored) {}
     }
 
     @Transactional
     public void updateNote(Note note) {
-        noteRepository.save(note);
+        try {
+            noteRepository.save(note);
+        } catch (Exception ignored) {}
     }
 
     public Note getById(int id) {
-        return noteRepository.getOne(id);
+        Note note = null;
+        try {
+            note = noteRepository.getOne(id);
+        } catch (Exception ignored) {}
+        return note;
     }
 
     public List<Note> getAllNotes() {

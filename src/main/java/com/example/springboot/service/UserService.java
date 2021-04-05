@@ -27,11 +27,19 @@ public class UserService {
     }
 
     public User getById(int id) {
-        return userRepository.getOne(id);
+        User user = null;
+        try {
+            user = userRepository.getOne(id);
+        } catch (Exception ignored) {}
+        return user;
     }
 
     public User getUserByEmail(String email) {
-        return userRepository.getFirstByEmail(email);
+        User user = null;
+        try {
+            user = userRepository.getFirstByEmail(email);
+        } catch (Exception ignored) {}
+        return user;
     }
 
     @Transactional
@@ -44,11 +52,15 @@ public class UserService {
 
     @Transactional
     public void updateUser(User user) {
-        userRepository.save(user);
+        try {
+            userRepository.save(user);
+        } catch (Exception ignored) {}
     }
 
     @Transactional
     public void deleteById(int id) {
-        userRepository.deleteById(id);
+        try {
+            userRepository.deleteById(id);
+        } catch (Exception ignored) {}
     }
 }

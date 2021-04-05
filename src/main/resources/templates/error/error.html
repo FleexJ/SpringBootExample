@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{error.title}">Something went wrong</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div class="content">
+    <div th:replace="fragments/header :: header-layout"></div>
+    <div class="error-content">
+        <h4 th:text="#{error.title}"></h4>
+        <a href="/" th:text="#{error.home}">Home</a>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

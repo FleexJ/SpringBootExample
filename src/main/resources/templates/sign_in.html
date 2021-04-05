@@ -10,7 +10,7 @@
 <div class="content">
     <div th:replace="fragments/header :: header-layout"></div>
     <div class="signIn-content">
-        <form class="signIn-form" method="POST" action="/sign_in/process">
+        <form class="signIn-form" method="POST" action="/sign_in">
             <h4 th:text="#{signIn.title}">Login</h4>
 
             <label for="email" th:text="#{signIn.email.text}">Email</label>
