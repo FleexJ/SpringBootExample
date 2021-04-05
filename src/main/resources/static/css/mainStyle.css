@@ -101,7 +101,8 @@ label{
 .myProfile-content,
 .editMyProfile-content,
 .editPassword-content,
-.users-content{
+.users-content,
+.profile-content{
     width: 100%;
     font-size: 17px;
 }
@@ -174,6 +175,14 @@ form{
 
 .users-table{
     border: 1px solid #b7aead;
+}
+
+.profile-content table{
+    border: 1px solid #b7aead;
+}
+
+.profile-content tr{
+    text-align: left;
 }
 
 .footer {

@@ -26,15 +26,21 @@
                     <td th:text="${user.email}"></td>
                     <td th:text="${user.name}"></td>
                     <td th:text="${user.role}"></td>
-                    <td th:if="${user.id} == ${currentUser.id}" th:text="#{users.me}"></td>
-                    <td th:if="${user.role != 'ADMIN'}">
-                        <a th:href="@{/admin/users/delete?id=} + ${user.id}"
-                           th:text="#{users.delete}">Delete</a>
+                    <td>
+                        <a th:href="@{/admin/users/profile?id=} + ${user.id}"
+                           th:text="#{users.profile}">Profile</a>
                     </td>
-                    <td th:if="${user.role != 'ADMIN'}">
-                        <a th:href="@{/admin/users/do_admin?id=} + ${user.id}"
-                           th:text="#{users.doAdmin}">Do admin</a>
-                    </td>
+                    <div th:if="${user.role != 'ADMIN'}">
+                        <td>
+                            <a th:href="@{/admin/users/delete?id=} + ${user.id}"
+                               th:text="#{users.delete}">Delete</a>
+                        </td>
+                        <td>
+                            <a th:href="@{/admin/users/do_admin?id=} + ${user.id}"
+                               th:text="#{users.doAdmin}">Do admin</a>
+                        </td>
+                    </div>
+                    <td style="color:#797b75" th:if="${user.id} == ${currentUser.id}" th:text="#{users.me}"></td>
                 </tr>
             </table>
         </div>

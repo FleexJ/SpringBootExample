@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{profile.title}">View profile</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div class="content">
+    <div th:replace="fragments/header :: header-layout"></div>
+    <div class="profile-content">
+        <h4 th:text="#{profile.title}">Profile</h4>
+
+        <table cellpadding="20">
+            <tr>
+                <th th:text="#{profile.id}">#id</th>
+                <td th:text="${user.id}"></td>
+            </tr>
+            <tr>
+                <th th:text="#{profile.role}">Role</th>
+                <td th:text="${user.role}"></td>
+            </tr>
+            <tr>
+                <th th:text="#{profile.email}">Email</th>
+                <td th:text="${user.email}"></td>
+            </tr>
+            <tr>
+                <th th:text="#{profile.name}">Name</th>
+                <td th:text="${user.name}"></td>
+            </tr>
+
+        </table>
+
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

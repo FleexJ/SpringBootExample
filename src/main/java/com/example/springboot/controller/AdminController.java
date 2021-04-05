@@ -72,4 +72,18 @@ public class AdminController {
         System.out.println("User: " + user.getEmail() + " give role admin to user: " + userEdit.getEmail());
         return "redirect:/admin/users";
     }
+
+    @GetMapping("/users/profile")
+    public String usersProfile(@AuthenticationPrincipal User user,
+                               @RequestParam("id") int id,
+                               Model model) {
+        User userId = userService.getById(id);
+        if (userId == null)
+            return "redirect:/admin/users";
+
+        model.addAttribute("currentUser", user);
+        model.addAttribute("user", userId);
+
+        return "profile";
+    }
 }
