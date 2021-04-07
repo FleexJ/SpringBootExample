@@ -29,7 +29,7 @@ public class MyProfileController {
     public String myProfileGET(@AuthenticationPrincipal User user,
                                Model model) {
         model.addAttribute("currentUser", user);
-        return "my_profile";
+        return "/users/my_profile";
     }
 
     @GetMapping("/edit")
@@ -45,7 +45,7 @@ public class MyProfileController {
         if (errorName != null && errorName)
             model.addAttribute("errorName", true);
         model.addAttribute("currentUser", user);
-        return "editMyProfile";
+        return "/users/editMyProfile";
     }
 
     @PostMapping("/edit")
@@ -87,7 +87,7 @@ public class MyProfileController {
         if (errorNew != null && errorNew)
             model.addAttribute("errorNew", true);
         model.addAttribute("currentUser", user);
-        return "editPassword";
+        return "/users/editPassword";
     }
 
     @PostMapping("/editPassword")

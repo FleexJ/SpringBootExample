@@ -15,13 +15,13 @@ import java.util.Date;
 
 @Controller
 @RequestMapping("/note")
-public class NoteConrtoller {
+public class NoteController {
 
     private final NoteValidator noteValidator;
     private final NoteService noteService;
 
     @Autowired
-    public NoteConrtoller(NoteValidator noteValidator, NoteService noteService) {
+    public NoteController(NoteValidator noteValidator, NoteService noteService) {
         this.noteValidator = noteValidator;
         this.noteService = noteService;
     }
@@ -31,7 +31,7 @@ public class NoteConrtoller {
                                 @AuthenticationPrincipal User user,
                                 Model model) {
         model.addAttribute("currentUser", user);
-        return "create_note";
+        return "/note/create_note";
     }
 
     @PostMapping("/create_note")
@@ -40,7 +40,7 @@ public class NoteConrtoller {
                                  BindingResult result) {
         noteValidator.validate(note, result);
         if (result.hasErrors())
-            return "create_note";
+            return "/note/create_note";
         note.setIdUser(user.getId());
         note.setCreated(new Date());
         noteService.addNote(note);
@@ -53,7 +53,7 @@ public class NoteConrtoller {
                              Model model) {
         model.addAttribute("currentUser", user);
         model.addAttribute("notes", noteService.getAllNotesByUserId(user.getId()));
-        return "my_notes";
+        return "/note/my_notes";
     }
 
 
@@ -77,17 +77,17 @@ public class NoteConrtoller {
                               @RequestParam(required = false) Boolean error,
                               Model model) {
         Note note = noteService.getById(id);
-        if (note == null || note.getIdUser() != user.getId()) {
+        if (note == null || note.getIdUser() != user.getId() && !user.isAdmin()) {
             return "redirect:/";
         }
         if (error != null && error)
             model.addAttribute("error", true);
         model.addAttribute("currentUser", user);
         model.addAttribute("note", note);
-        return "edit_note";
+        return "/note/edit_note";
     }
 
-    @PostMapping("/edit_note")
+    @PatchMapping("/edit_note")
     public String editNotePOST(@AuthenticationPrincipal User user,
                                @RequestParam("title") String title,
                                @RequestParam("content") String content,

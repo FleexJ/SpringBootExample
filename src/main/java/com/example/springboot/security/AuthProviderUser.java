@@ -19,7 +19,8 @@ public class AuthProviderUser implements AuthenticationProvider {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AuthProviderUser(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public AuthProviderUser(UserRepository userRepository,
+                            PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -40,7 +41,8 @@ public class AuthProviderUser implements AuthenticationProvider {
                 .password(user.getPassword())
                 .roles(user.getRole())
                 .build();
-        return new UsernamePasswordAuthenticationToken(user, user.getPassword(), details.getAuthorities());
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user, user.getPassword(), details.getAuthorities());
+        return token;
     }
 
     @Override

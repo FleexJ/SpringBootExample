@@ -92,17 +92,7 @@ label{
     color: aliceblue;
 }
 
-.index-content,
-.signUp-content,
-.signIn-content,
-.createNote-content,
-.myNotes-content,
-.editNote-content,
-.myProfile-content,
-.editMyProfile-content,
-.editPassword-content,
-.users-content,
-.profile-content{
+.page-content{
     width: 100%;
     font-size: 17px;
 }

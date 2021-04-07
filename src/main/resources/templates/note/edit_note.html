@@ -9,10 +9,10 @@
 <body>
 <div class="content">
     <div th:replace="fragments/header :: header-layout"></div>
-    <div class="editNote-content">
+    <div class="page-content">
         <form class="editNote-form"
-              th:method="POST"
-              th:action="@{/note/edit_note} + '?id=' + ${note.id}">
+              th:method="PATCH"
+              th:action="@{/note/edit_note?id=} + ${note.id}">
 
             <h4 th:text="#{editNote.title}">Edit note</h4>
 

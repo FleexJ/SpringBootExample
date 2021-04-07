@@ -9,7 +9,7 @@
 <body>
 <div class="content">
     <div th:replace="fragments/header :: header-layout"></div>
-    <div class="myProfile-content">
+    <div class="page-content; myProfile-content">
         <h4 th:text="#{myProfile.title}">Profile</h4>
 
         <p th:text="#{myProfile.email.text} + ': ' + ${currentUser.email}"></p>

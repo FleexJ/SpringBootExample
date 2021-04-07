@@ -46,7 +46,7 @@ public class MainController {
                              BindingResult result) {
         userValidator.validate(user, result);
         if (result.hasErrors())
-            return "sign_up";
+            return "/auth/sign_up";
         user.setRole(User.ROLE_USER);
         userService.addUser(user);
         System.out.println("New user: " + user.getEmail());
@@ -59,6 +59,6 @@ public class MainController {
                             Model model) {
         if (error != null && error)
             model.addAttribute("error", true);
-        return "sign_in";
+        return "/auth/sign_in";
     }
 }

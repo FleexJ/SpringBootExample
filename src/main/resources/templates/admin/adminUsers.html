@@ -9,7 +9,7 @@
 <body>
 <div class="content">
     <div th:replace="fragments/header :: header-layout"></div>
-    <div class="users-content">
+    <div class="page-content">
         <h4 th:text="#{users.title}">Users</h4>
         <h5 th:if="${users.size == 0}" th:text="#{users.empty}">Empty users yet</h5>
 
@@ -30,17 +30,19 @@
                         <a th:href="@{/admin/users/profile?id=} + ${user.id}"
                            th:text="#{users.profile}">Profile</a>
                     </td>
-                    <div th:if="${user.role != 'ADMIN'}">
-                        <td>
-                            <a th:href="@{/admin/users/delete?id=} + ${user.id}"
-                               th:text="#{users.delete}">Delete</a>
-                        </td>
+                    <div th:if="${user.role == 'USER'}">
+<!--                        <td>-->
+<!--                            <a th:href="@{/admin/users/delete?id=} + ${user.id}"-->
+<!--                               th:text="#{users.delete}">Delete</a>-->
+<!--                        </td>-->
                         <td>
                             <a th:href="@{/admin/users/do_admin?id=} + ${user.id}"
                                th:text="#{users.doAdmin}">Do admin</a>
                         </td>
                     </div>
-                    <td style="color:#797b75" th:if="${user.id} == ${currentUser.id}" th:text="#{users.me}"></td>
+                    <td style="color:#797b75"
+                        th:if="${user.id} == ${currentUser.id}"
+                        th:text="#{users.me}"></td>
                 </tr>
             </table>
         </div>
