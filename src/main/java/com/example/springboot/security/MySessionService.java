@@ -7,8 +7,10 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -31,20 +33,6 @@ public class MySessionService {
                 if (user.getEmail().equals(username)) {
                     for (SessionInformation information : sessionRegistry.getAllSessions(user, true)) {
                         information.expireNow();
-                        killExpiredSessionForSure(information.getSessionId());
-                    }
-                }
-            }
-        }
-    }
-
-    public void updateUserSession(String username, User userNew) {
-        for (Object principal : sessionRegistry.getAllPrincipals()) {
-            if (principal instanceof User) {
-                User user = (User) principal;
-                if (user.getEmail().equals(username) && user.getId() == userNew.getId()) {
-                    for (SessionInformation information : sessionRegistry.getAllSessions(user, true)) {
-                        user.updateWithoutId(userNew);
                         killExpiredSessionForSure(information.getSessionId());
                     }
                 }

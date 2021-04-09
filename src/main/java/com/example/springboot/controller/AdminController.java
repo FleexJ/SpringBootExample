@@ -70,7 +70,7 @@ public class AdminController {
 
         userEdit.setRole(User.ROLE_ADMIN);
         userService.updateUser(userEdit);
-//        sessionService.updateUserSession(userEdit.getEmail(), userEdit);
+        sessionService.expireUserSessions(userEdit.getEmail());
         return "redirect:/admin/users";
     }
 
