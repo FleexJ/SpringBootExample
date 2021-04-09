@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -28,19 +29,12 @@ public class UserService {
     }
 
     public User getById(int id) {
-        User user = null;
-        try {
-            user = userRepository.getOne(id);
-        } catch (EntityNotFoundException ignored) {}
-        return user;
+        Optional<User> optional = userRepository.findById(id);
+        return optional.orElse(null);
     }
 
     public User getUserByEmail(String email) {
-        User user = null;
-        try {
-            user = userRepository.getFirstByEmail(email);
-        } catch (EntityNotFoundException ignored) {}
-        return user;
+        return userRepository.getFirstByEmail(email);
     }
 
     @Transactional
@@ -53,15 +47,11 @@ public class UserService {
 
     @Transactional
     public void updateUser(User user) {
-        try {
-            userRepository.save(user);
-        } catch (EntityNotFoundException ignored) {}
+        userRepository.save(user);
     }
 
     @Transactional
     public void deleteById(int id) {
-        try {
-            userRepository.deleteById(id);
-        } catch (EntityNotFoundException ignored) {}
+        userRepository.deleteById(id);
     }
 }

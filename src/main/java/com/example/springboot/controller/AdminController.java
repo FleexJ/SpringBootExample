@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.persistence.EntityNotFoundException;
 
 @Controller
 @RequestMapping("/admin")
@@ -48,9 +47,8 @@ public class AdminController {
 
         userService.deleteById(id);
         sessionService.expireUserSessions(userId.getEmail());
-        if (user.getId() == id) {
+        if (user.getId() == id)
             return "redirect:/logout";
-        }
         return "redirect:/admin/users";
     }
 

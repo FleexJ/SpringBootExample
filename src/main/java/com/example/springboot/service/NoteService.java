@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -29,24 +30,17 @@ public class NoteService {
 
     @Transactional
     public void deleteNote(int id) {
-        try {
-            noteRepository.deleteById(id);
-        } catch (EntityNotFoundException ignored) {}
+        noteRepository.deleteById(id);
     }
 
     @Transactional
     public void updateNote(Note note) {
-        try {
-            noteRepository.save(note);
-        } catch (EntityNotFoundException ignored) {}
+        noteRepository.save(note);
     }
 
     public Note getById(int id) {
-        Note note = null;
-        try {
-            note = noteRepository.getOne(id);
-        } catch (EntityNotFoundException ignored) {}
-        return note;
+        Optional<Note> optional = noteRepository.findById(id);
+        return optional.orElse(null);
     }
 
     public List<Note> getAllNotes() {
