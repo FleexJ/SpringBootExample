@@ -38,7 +38,7 @@ public class MainController {
 
     @GetMapping("/sign_up")
     public String signUpGET(@ModelAttribute("user") User user) {
-        return "sign_up";
+        return "/auth/sign_up";
     }
 
     @PostMapping("/sign_up")

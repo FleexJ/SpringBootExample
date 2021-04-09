@@ -41,7 +41,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureUrl("/sign_in?error=true")
                 .and().exceptionHandling().accessDeniedPage("/")
                 .and().logout()
-                .and().sessionManagement().maximumSessions(2).sessionRegistry(sessionRegistry());
+                .and().sessionManagement()
+                .invalidSessionUrl("/")
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(true)
+                .sessionRegistry(sessionRegistry());
     }
 
     @Override

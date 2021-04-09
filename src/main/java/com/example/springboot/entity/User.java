@@ -40,6 +40,13 @@ public class User {
         this.role = role;
     }
 
+    public void updateWithoutId(User user) {
+        this.name = user.getName();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.role = user.getRole();
+    }
+
     public boolean validEmail() {
         return email.matches(emailRegex);
     }
@@ -90,5 +97,16 @@ public class User {
 
     public void setRole(String  role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
 }

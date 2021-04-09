@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Comparator;
 import java.util.List;
 
@@ -30,21 +31,21 @@ public class NoteService {
     public void deleteNote(int id) {
         try {
             noteRepository.deleteById(id);
-        } catch (Exception ignored) {}
+        } catch (EntityNotFoundException ignored) {}
     }
 
     @Transactional
     public void updateNote(Note note) {
         try {
             noteRepository.save(note);
-        } catch (Exception ignored) {}
+        } catch (EntityNotFoundException ignored) {}
     }
 
     public Note getById(int id) {
         Note note = null;
         try {
             note = noteRepository.getOne(id);
-        } catch (Exception ignored) {}
+        } catch (EntityNotFoundException ignored) {}
         return note;
     }
 

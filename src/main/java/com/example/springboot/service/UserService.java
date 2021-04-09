@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -30,7 +31,7 @@ public class UserService {
         User user = null;
         try {
             user = userRepository.getOne(id);
-        } catch (Exception ignored) {}
+        } catch (EntityNotFoundException ignored) {}
         return user;
     }
 
@@ -38,7 +39,7 @@ public class UserService {
         User user = null;
         try {
             user = userRepository.getFirstByEmail(email);
-        } catch (Exception ignored) {}
+        } catch (EntityNotFoundException ignored) {}
         return user;
     }
 
@@ -54,13 +55,13 @@ public class UserService {
     public void updateUser(User user) {
         try {
             userRepository.save(user);
-        } catch (Exception ignored) {}
+        } catch (EntityNotFoundException ignored) {}
     }
 
     @Transactional
     public void deleteById(int id) {
         try {
             userRepository.deleteById(id);
-        } catch (Exception ignored) {}
+        } catch (EntityNotFoundException ignored) {}
     }
 }

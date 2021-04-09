@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Date;
 
 @Controller
@@ -64,9 +65,7 @@ public class NoteController {
         if (note == null || note.getIdUser() != user.getId()) {
             return "redirect:/";
         }
-        try {
-            noteService.deleteNote(id);
-        } catch (Exception ignored) {}
+        noteService.deleteNote(id);
         return "redirect:/note/my_notes";
     }
 
@@ -102,9 +101,7 @@ public class NoteController {
         }
         note.setTitle(title);
         note.setContent(content);
-        try {
-            noteService.updateNote(note);
-        } catch (Exception ignored) {}
+        noteService.updateNote(note);
         return "redirect:/note/my_notes";
     }
 }

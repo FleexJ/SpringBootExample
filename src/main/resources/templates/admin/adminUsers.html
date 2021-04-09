@@ -31,10 +31,10 @@
                            th:text="#{users.profile}">Profile</a>
                     </td>
                     <div th:if="${user.role == 'USER'}">
-<!--                        <td>-->
-<!--                            <a th:href="@{/admin/users/delete?id=} + ${user.id}"-->
-<!--                               th:text="#{users.delete}">Delete</a>-->
-<!--                        </td>-->
+                        <td>
+                            <a th:href="@{/admin/users/delete?id=} + ${user.id}"
+                               th:text="#{users.delete}">Delete</a>
+                        </td>
                         <td>
                             <a th:href="@{/admin/users/do_admin?id=} + ${user.id}"
                                th:text="#{users.doAdmin}">Do admin</a>
