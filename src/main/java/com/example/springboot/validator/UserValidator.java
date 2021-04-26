@@ -14,12 +14,19 @@ public class UserValidator implements Validator {
 
     private final UserService userService;
     private final MessageSource messageSource;
+    @Autowired
+    private NoteValidator noteValidator;
 
     @Autowired
     public UserValidator(UserService userService, MessageSource messageSource) {
         this.userService = userService;
         this.messageSource = messageSource;
     }
+
+//    @Autowired
+//    public void setNoteValidator(NoteValidator noteValidator) {
+//        this.noteValidator = noteValidator;
+//    }
 
     @Override
     public boolean supports(Class<?> aClass) {

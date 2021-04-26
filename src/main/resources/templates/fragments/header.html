@@ -20,7 +20,7 @@
         </div>
     </div>
     <a class="header-logo" href="/">
-        <img th:src="@{/images/notes.png}">
+        <img th:src="@{/images/notes.png}"/>
         Notes
     </a>
     <div class="header-ref">
@@ -30,7 +30,7 @@
         <a href="/my_profile" th:text="#{my.profile.ref}">My profile</a>
         <a href="/admin/users"
            th:text="#{users.title}"
-           th:if="${currentUser} != null and ${currentUser.role} == 'ADMIN'">Users</a>
+           th:if="${currentUser} != null and ${currentUser.isAdmin()}">Users</a>
     </div>
 </div>
 </html>

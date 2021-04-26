@@ -1,5 +1,6 @@
 package com.example.springboot.config;
 
+import com.example.springboot.entity.Role;
 import com.example.springboot.entity.User;
 import com.example.springboot.security.AuthProviderUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,15 +12,17 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final AuthProviderUser authProviderUser;
+    private AuthProviderUser authProviderUser;
 
     @Autowired
-    public SecurityConfig(AuthProviderUser authProviderUser) {
+    public void setAuthProviderUser(AuthProviderUser authProviderUser) {
         this.authProviderUser = authProviderUser;
     }
 
@@ -28,12 +31,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new SessionRegistryImpl();
     }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/sign_in", "/sign_up").anonymous()
                 .antMatchers("/note/**", "/my_profile/**").authenticated()
-                .antMatchers("/admin/**").hasRole(User.ROLE_ADMIN)
+                .antMatchers("/admin/**").hasRole(Role.ADMIN.name())
                 .and().csrf().disable()
                 .formLogin()
                 .loginPage("/sign_in")

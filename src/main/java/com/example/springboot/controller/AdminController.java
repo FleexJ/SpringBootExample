@@ -1,6 +1,7 @@
 package com.example.springboot.controller;
 
 import com.example.springboot.entity.Note;
+import com.example.springboot.entity.Role;
 import com.example.springboot.entity.User;
 import com.example.springboot.security.MySessionService;
 import com.example.springboot.service.NoteService;
@@ -68,7 +69,7 @@ public class AdminController {
         if (userEdit == null)
             return "redirect:/admin/users";
 
-        userEdit.setRole(User.ROLE_ADMIN);
+        userEdit.setRole(Role.ADMIN);
         userService.updateUser(userEdit);
         sessionService.expireUserSessions(userEdit.getEmail());
         return "redirect:/admin/users";

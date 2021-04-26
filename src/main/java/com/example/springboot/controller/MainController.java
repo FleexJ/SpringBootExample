@@ -1,5 +1,6 @@
 package com.example.springboot.controller;
 
+import com.example.springboot.entity.Role;
 import com.example.springboot.entity.User;
 import com.example.springboot.service.NoteService;
 import com.example.springboot.service.UserService;
@@ -47,7 +48,7 @@ public class MainController {
         userValidator.validate(user, result);
         if (result.hasErrors())
             return "/auth/sign_up";
-        user.setRole(User.ROLE_USER);
+        user.setRole(Role.ADMIN);
         userService.addUser(user);
         System.out.println("New user: " + user.getEmail());
         return "redirect:/sign_in";

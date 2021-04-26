@@ -24,6 +24,7 @@ public class AuthProviderUser implements AuthenticationProvider {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
+    
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -39,7 +40,7 @@ public class AuthProviderUser implements AuthenticationProvider {
         UserDetails details = org.springframework.security.core.userdetails.User.builder()
                 .username(user.getEmail())
                 .password(user.getPassword())
-                .roles(user.getRole())
+                .roles(user.getRole().name())
                 .build();
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user, user.getPassword(), details.getAuthorities());
         return token;

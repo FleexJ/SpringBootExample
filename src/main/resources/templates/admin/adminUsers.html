@@ -30,7 +30,7 @@
                         <a th:href="@{/admin/users/profile?id=} + ${user.id}"
                            th:text="#{users.profile}">Profile</a>
                     </td>
-                    <div th:if="${user.role == 'USER'}">
+                    <div th:if="${user.isUser()}">
                         <td>
                             <a th:href="@{/admin/users/delete?id=} + ${user.id}"
                                th:text="#{users.delete}">Delete</a>

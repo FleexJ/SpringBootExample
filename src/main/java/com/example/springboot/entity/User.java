@@ -6,11 +6,11 @@ import javax.persistence.*;
 @Table(name = "users")
 public class User {
 
-    public final static String ROLE_USER = "USER";
-    public final static String ROLE_USER_AUTHORITY = "ROLE_USER";
-
-    public final static String ROLE_ADMIN = "ADMIN";
-    public final static String ROLE_ADMIN_AUTHORITY = "ROLE_ADMIN";
+//    public final static String ROLE_USER = "USER";
+//    public final static String ROLE_USER_AUTHORITY = "ROLE_USER";
+//
+//    public final static String ROLE_ADMIN = "ADMIN";
+//    public final static String ROLE_ADMIN_AUTHORITY = "ROLE_ADMIN";
 
     public final static String emailRegex = "^\\w+@\\w+\\.\\w+$";
 
@@ -20,7 +20,8 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     public User() {
     }
@@ -32,7 +33,7 @@ public class User {
         this.password = password;
     }
 
-    public User(int id, String name, String email, String password, String role) {
+    public User(int id, String name, String email, String password, Role role) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -52,11 +53,11 @@ public class User {
     }
 
     public boolean isAdmin() {
-        return role.equals(ROLE_ADMIN);
+        return role.equals(Role.ADMIN);
     }
 
     public boolean isUser() {
-        return role.equals(ROLE_USER);
+        return role.equals(Role.USER);
     }
 
     public int getId() {
@@ -91,11 +92,11 @@ public class User {
         this.password = password;
     }
 
-    public String  getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String  role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

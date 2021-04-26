@@ -12,11 +12,18 @@ import org.springframework.validation.Validator;
 public class NoteValidator implements Validator {
 
     private final MessageSource messageSource;
+    @Autowired
+    private UserValidator userValidator;
 
     @Autowired
     public NoteValidator(MessageSource messageSource) {
         this.messageSource = messageSource;
     }
+
+//    @Autowired
+//    public void setUserValidator(UserValidator userValidator) {
+//        this.userValidator = userValidator;
+//    }
 
     @Override
     public boolean supports(Class<?> aClass) {

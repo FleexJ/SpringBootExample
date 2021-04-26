@@ -53,9 +53,4 @@ public class MainConfig {
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 }
