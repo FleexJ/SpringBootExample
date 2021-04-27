@@ -26,4 +26,7 @@
   + Просматривать профиль любого пользователя
   
 Все формы ввода защищены сервером от некорректных данных.
+
+#### Структура базы данных проекта:  
+<img src="https://github.com/FleexJ/resource/blob/main/SpringBootExample/db_struct.png" width="350px"/>
   
