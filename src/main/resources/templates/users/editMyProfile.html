@@ -10,10 +10,13 @@
 <div class="content">
     <div th:replace="fragments/header :: header-layout"></div>
     <div class="page-content">
-        <form class="editMyProfile-form" method="post" th:action="@{/my_profile/edit}">
+        <form class="editMyProfile-form"
+              th:method="PATCH"
+              th:action="@{/my_profile/edit}">
             <h4 th:text="#{editMyProfile.title}">Edit my profile</h4>
 
-            <label for="email" th:text="#{editMyProfile.email.text}">Email</label>
+            <label for="email"
+                   th:text="#{editMyProfile.email.text}">Email</label>
             <input type="text" id="email" name="email" placeholder="Email"
                    th:value="${currentUser.email}"
                    th:placeholder="#{editMyProfile.email.text}"/>

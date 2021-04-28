@@ -6,12 +6,6 @@ import javax.persistence.*;
 @Table(name = "users")
 public class User {
 
-//    public final static String ROLE_USER = "USER";
-//    public final static String ROLE_USER_AUTHORITY = "ROLE_USER";
-//
-//    public final static String ROLE_ADMIN = "ADMIN";
-//    public final static String ROLE_ADMIN_AUTHORITY = "ROLE_ADMIN";
-
     public final static String emailRegex = "^\\w+@\\w+\\.\\w+$";
 
     @Id

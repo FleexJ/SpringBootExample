@@ -53,16 +53,6 @@ public class AdminController {
         return "redirect:/admin/users";
     }
 
-    @GetMapping("/note/delete")
-    public String adminNoteDelete(@RequestParam("id") int id) {
-        Note note = noteService.getById(id);
-        if (note == null)
-            return "redirect:/";
-
-        noteService.deleteNote(id);
-        return "redirect:/";
-    }
-
     @GetMapping("/users/do_admin")
     public String adminUsersDoAdmin(@RequestParam("id") int id) {
         User userEdit = userService.getById(id);
@@ -113,6 +103,16 @@ public class AdminController {
         note.setTitle(title);
         note.setContent(content);
         noteService.updateNote(note);
+        return "redirect:/";
+    }
+
+    @GetMapping("/note/delete")
+    public String adminNoteDelete(@RequestParam("id") int id) {
+        Note note = noteService.getById(id);
+        if (note == null)
+            return "redirect:/";
+
+        noteService.deleteNote(id);
         return "redirect:/";
     }
 }
